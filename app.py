@@ -70,7 +70,7 @@ def event_handle(event):
         msg = str(event["message"]["text"])
         translation = translator.translate(msg)
         if translation.src == 'en':
-            profile = line_bot_api.get_profile(user_id)
+            profile = line_bot_api.get_profile(userId)
             profile.display_name
             translation = translator.translate(msg, dest='ja')
             replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 👇　\n\n"+"　「"+translation.text+"」\n\n"+profile.display_name)
