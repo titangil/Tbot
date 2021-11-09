@@ -39,11 +39,7 @@ def callback():
 
 
 
-data = {
-  'auth_key': '[yourAuthKey]',
-  'text': 'Hello',
-  'target_lang': 'JA'
-}
+
 
 
 
@@ -71,6 +67,11 @@ def event_handle(event):
         return ''
 
     if msgType == "text":
+        data = {
+          'auth_key': '[yourAuthKey]',
+          'text': 'Hello',
+          'target_lang': 'JA'
+        }   
         msg = str(event["message"]["text"])
         response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
         replyObj = TextSendMessage(text=response)
