@@ -5,3 +5,4 @@ wikipedia
 line-bot-sdk
 pandas
 googletrans
+google-cloud-storage
