@@ -65,10 +65,10 @@ def event_handle(event):
         translation = translator.translate(msg)
         if translation.src == 'en':
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 :　\n\n"+"　「"+translation.text+"」")
+            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 👇　\n\n"+"　「"+translation.text+"」\n\n")
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸 : \n\n"+" '"+translation.text+"'")
+            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸 👇 \n\n"+" '"+translation.text+"'\n\n")
         
         line_bot_api.reply_message(rtoken, replyObj)
 
