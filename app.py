@@ -73,12 +73,12 @@ def event_handle(event):
             profile = line_bot_api.get_profile(userId)
             profile.display_name
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 👇　\n\n"+profile.display_name+"さんは　　「"+translation.text+"」　　と言った\n\n")
+            replyObj = TextSendMessage(text="      翻訳  🇺🇸 => 🇯🇵 👇　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」\n　　と言った\n\n")
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸 👇 \n\n"+" '"+translation.text+"'\n\n"+link)
+            replyObj = TextSendMessage(text="      Translation  🇯🇵 => 🇺🇸 👇 \n\n"+" '"+translation.text+"'\n\n"+link)
           
             #webbrowser.open("http://www.example.com")
         
