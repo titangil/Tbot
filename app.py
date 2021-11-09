@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 #-*-coding: utf-8 -*-
 ##from __future__ import absolute_import
@@ -5,10 +6,6 @@
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
-from googletrans import Translator
-import webbrowser
-
-import nagisa
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
@@ -17,16 +14,11 @@ from linebot.models.template import *
 from linebot import (
     LineBotApi, WebhookHandler
 )
-translator = Translator()
+
 app = Flask(__name__)
 
 lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3Ogip6tk8Ye6U7HXK01qCGgYBkzqWAsCzRoGbnSIy7ySiatAQfkrO39tELLdO+ixRiC9cLXMvOTftT1w3hPgDcoWOQdB04t89/1O/w1cDnyilFU='
 line_bot_api = LineBotApi(lineaccesstoken)
-
-text = "This is a link"
-target = "http://example.com"
-link = (f"\u001b]8;;{target}\u001b\\{text}\u001b]8;;\u001b\\")
-
 
 ####################### new ########################
 @app.route('/')
@@ -70,26 +62,8 @@ def event_handle(event):
         return ''
 
     if msgType == "text":
-        profile = line_bot_api.get_profile(userId)
-        profile.display_name
         msg = str(event["message"]["text"])
-        translation = translator.translate(msg)
-        words = nagisa.tagging(msg)
-        wordslength = len(words.words)
-        for x in range(wordslength):
-            wordx = wordx + words.words[x] + " "+ words.postags[x]+"\n"
-        if translation.src == 'en':
-            
-            translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="TEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n")
-      
-            #webbrowser.open("http://www.example.com")
-        elif translation.src == 'ja':
-            translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+wordx)
-          
-            #webbrowser.open("http://www.example.com")
-        
+        replyObj = TextSendMessage(text=msg)
         line_bot_api.reply_message(rtoken, replyObj)
 
     else:
@@ -100,5 +74,3 @@ def event_handle(event):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-    
