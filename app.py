@@ -6,6 +6,7 @@ from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
 from googletrans import Translator
+import webbrowser
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
 )
@@ -66,9 +67,11 @@ def event_handle(event):
         if translation.src == 'en':
             translation = translator.translate(msg, dest='ja')
             replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 👇　\n\n"+"　「"+translation.text+"」\n\n")
+            webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
             replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸 👇 \n\n"+" '"+translation.text+"'\n\n")
+            webbrowser.open("http://www.example.com")
         
         line_bot_api.reply_message(rtoken, replyObj)
 
