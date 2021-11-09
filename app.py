@@ -2,12 +2,10 @@
 #-*-coding: utf-8 -*-
 ##from __future__ import absolute_import
 ###
-from googletrans import Translator
-from google.cloud import translate
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
-import requests
+
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
 )
@@ -15,29 +13,6 @@ from linebot.models.template import *
 from linebot import (
     LineBotApi, WebhookHandler
 )
-
-
-def translate_text(text="Hello, world!", project_id="gleaming-design-331610"):
-
-    client = translate.TranslationServiceClient()
-    location = "global"
-    parent = f"projects/{project_id}/locations/{location}"
-
-    response = client.translate_text(
-        request={
-            "parent": parent,
-            "contents": [text],
-            "mime_type": "text/plain",
-            "source_language_code": "en-US",
-            "target_language_code": "ja",
-        }
-    )
-
-    '''for translation in response.translations:
-        print("Translated text: {}".format(translation.translated_text))'''
-    return response.translation.translated_text
-
-
 
 app = Flask(__name__)
 
@@ -60,12 +35,6 @@ def callback():
         event = decoded['events'][i]
         event_handle(event)
     return '',200
-
-
-
-
-
-
 
 
 def event_handle(event):
@@ -92,19 +61,9 @@ def event_handle(event):
         return ''
 
     if msgType == "text":
-
         msg = str(event["message"]["text"])
-
-        '''data = {
-          'auth_key': 'dasdsadasfasdsafdsgfvrscdadcas',
-          'text': 'Hello',
-          'target_lang': 'DE'
-        }   '''
-        
-        #response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
         replyObj = TextSendMessage(text=msg)
         line_bot_api.reply_message(rtoken, replyObj)
-        print(msg)
 
     else:
         sk_id = np.random.randint(1,17)
