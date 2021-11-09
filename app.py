@@ -5,7 +5,7 @@
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
-
+import requests
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
 )
@@ -37,6 +37,16 @@ def callback():
     return '',200
 
 
+
+
+data = {
+  'auth_key': '[yourAuthKey]',
+  'text': 'ADSAdsad',
+  'target_lang': 'DE'
+}
+
+response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
+
 def event_handle(event):
     print(event)
     try:
@@ -64,6 +74,7 @@ def event_handle(event):
         msg = str(event["message"]["text"])
         replyObj = TextSendMessage(text="YEYAYYEYYAYADA")
         line_bot_api.reply_message(rtoken, replyObj)
+        print(msg)
 
     else:
         sk_id = np.random.randint(1,17)
