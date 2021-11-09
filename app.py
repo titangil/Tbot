@@ -78,11 +78,16 @@ def event_handle(event):
         wordx = ""
         wordslength = len(words.words)
         for x in range(wordslength):
-            wordx = wordx + words.words[x] + " "+ words.postags[x]+"\n"
+            if len(words.words[x]) == 1:
+                wordx = wordx + words.words[x] + "      "+ words.postags[x]+"\n"
+            elif len(words.words[x]) == 2:
+                wordx = wordx + words.words[x] + "    "+ words.postags[x]+"\n"
+            elif len(words.words[x]) == 3:
+                wordx = wordx + words.words[x] + "  "+ words.postags[x]+"\n"
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="TEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n")
+            replyObj = TextSendMessage(text="TEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
