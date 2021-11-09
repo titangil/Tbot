@@ -4,7 +4,7 @@ Line bot. Webhook hosting on Heroku => https://www.heroku.com
 
 Functions:
 
-  -Read & reply text lineapi: LINE Messaging API SDK for Python => https://github.com/line/line-bot-sdk-python
+  -Read & reply text : LINE Messaging API SDK for Python => https://github.com/line/line-bot-sdk-python
   
   -Translate text : Googletrans => https://github.com/ssut/py-googletrans
   
