@@ -79,7 +79,7 @@ def event_handle(event):
         wordslength = len(words.words)
         for x in range(wordslength):
             if len(words.words[x]) == 1:
-                wordx = wordx + words.words[x] + "\t   "+ words.postags[x]+"\n"
+                wordx = wordx + words.words[x] + "\t\t   "+ words.postags[x]+"\n"
             elif len(words.words[x]) == 2:
                 wordx = wordx + words.words[x] + "\t  "+ words.postags[x]+"\n"
             elif len(words.words[x]) == 3:
