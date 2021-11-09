@@ -5,7 +5,7 @@
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
-
+from googletrans import Translator
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
 )
@@ -13,7 +13,7 @@ from linebot.models.template import *
 from linebot import (
     LineBotApi, WebhookHandler
 )
-
+translator = Translator()
 app = Flask(__name__)
 
 lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3Ogip6tk8Ye6U7HXK01qCGgYBkzqWAsCzRoGbnSIy7ySiatAQfkrO39tELLdO+ixRiC9cLXMvOTftT1w3hPgDcoWOQdB04t89/1O/w1cDnyilFU='
@@ -62,7 +62,8 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        replyObj = TextSendMessage(text=msg)
+        translation = translator.translate(msg, dest='en')
+        replyObj = TextSendMessage(text=translation)
         line_bot_api.reply_message(rtoken, replyObj)
 
     else:
