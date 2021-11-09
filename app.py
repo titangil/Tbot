@@ -79,7 +79,7 @@ def event_handle(event):
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n       '"+translation.text+"'\n\n")
+            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n")
           
             #webbrowser.open("http://www.example.com")
         
