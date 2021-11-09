@@ -41,11 +41,11 @@ def callback():
 
 data = {
   'auth_key': '[yourAuthKey]',
-  'text': 'ADSAdsad',
-  'target_lang': 'DE'
+  'text': 'Hello',
+  'target_lang': 'JA'
 }
 
-response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
+
 
 def event_handle(event):
     print(event)
@@ -72,7 +72,8 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        replyObj = TextSendMessage(text="YEYAYYEYYAYADA")
+        response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
+        replyObj = TextSendMessage(text=response)
         line_bot_api.reply_message(rtoken, replyObj)
         print(msg)
 
