@@ -78,12 +78,12 @@ def event_handle(event):
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="TEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+words.words)
+            replyObj = TextSendMessage(text="TEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n")
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n")
+            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+words.words[2])
           
             #webbrowser.open("http://www.example.com")
         
