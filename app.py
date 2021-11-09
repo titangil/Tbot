@@ -7,8 +7,10 @@ import json
 import numpy as np
 from googletrans import Translator
 import webbrowser
+'''import dynet
 import nagisa
-
+words = nagisa.tagging(text)
+print(words)'''
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
 )
