@@ -62,9 +62,14 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        translation = translator.translate(msg, dest='en')
-
-        replyObj = TextSendMessage(text="translation: \n"+translation.text)
+        translation = translator.translate(msg)
+        if translation.src == 'en':
+            translation = translator.translate(msg, dest='ja')
+            replyObj = TextSendMessage(text="translation 🇯🇵 => 🇺🇸 \n\t"+translation.text)
+        elif translation.src == 'ja':
+            translation = translator.translate(msg, dest='em')
+            replyObj = TextSendMessage(text="translation 🇺🇸 => 🇯🇵 \n\t"+translation.text)
+        
         line_bot_api.reply_message(rtoken, replyObj)
 
     else:
