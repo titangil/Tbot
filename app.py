@@ -63,7 +63,7 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         translation = translator.translate(msg, dest='en')
-        replyObj = TextSendMessage(text=translation.text)
+        replyObj = TextSendMessage(text="translation:"+translation.text)
         line_bot_api.reply_message(rtoken, replyObj)
 
     else:
