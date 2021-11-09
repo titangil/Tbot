@@ -20,7 +20,7 @@ from linebot import (
 translator = Translator()
 app = Flask(__name__)
 
-lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3Ogip6tk8Ye6U7HXK01qCGgYBkzqWAsCzRoGbnSIy7ySiatAQfkrO39tELLdO+ixRiC9cLXMvOTftT1w3hPgDcoWOQdB04t89/1O/w1cDnyilFU='
+lineaccesstoken = ' XXXXXX '
 line_bot_api = LineBotApi(lineaccesstoken)
 
 text = "This is a link"
