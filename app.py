@@ -67,12 +67,15 @@ def event_handle(event):
         return ''
 
     if msgType == "text":
-        data = {
-          'auth_key': '[yourAuthKey]',
-          'text': 'Hello',
-          'target_lang': 'JA'
-        }   
+
         msg = str(event["message"]["text"])
+
+        data = {
+          'auth_key': 'dasdsadasfasdsafdsgfvrscdadcas',
+          'text': 'Hello',
+          'target_lang': 'DE'
+        }   
+        
         response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
         replyObj = TextSendMessage(text=response)
         line_bot_api.reply_message(rtoken, replyObj)
