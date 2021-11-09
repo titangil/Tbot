@@ -2,6 +2,7 @@
 #-*-coding: utf-8 -*-
 ##from __future__ import absolute_import
 ###
+from googletrans import Translator
 from google.cloud import translate
 from flask import Flask, jsonify, render_template, request
 import json
@@ -101,7 +102,7 @@ def event_handle(event):
         }   '''
         
         #response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
-        replyObj = TextSendMessage(text=translate_text())
+        replyObj = TextSendMessage(text=msg)
         line_bot_api.reply_message(rtoken, replyObj)
         print(msg)
 
