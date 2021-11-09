@@ -75,6 +75,9 @@ def event_handle(event):
         msg = str(event["message"]["text"])
         translation = translator.translate(msg)
         words = nagisa.tagging(msg)
+        wordslength = len(words.words)
+        for x in range(wordslength):
+            wordx = wordx + words.words[x] + " "+ words.postags[x]+"\n"
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
@@ -83,7 +86,7 @@ def event_handle(event):
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+words.words[2])
+            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+wordx)
           
             #webbrowser.open("http://www.example.com")
         
