@@ -7,6 +7,7 @@ import json
 import numpy as np
 from googletrans import Translator
 import webbrowser
+import nagisa
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
@@ -75,7 +76,7 @@ def event_handle(event):
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="TESTTEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n")
+            replyObj = TextSendMessage(text="YOYO翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n")
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
