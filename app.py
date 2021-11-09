@@ -20,6 +20,11 @@ app = Flask(__name__)
 lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3Ogip6tk8Ye6U7HXK01qCGgYBkzqWAsCzRoGbnSIy7ySiatAQfkrO39tELLdO+ixRiC9cLXMvOTftT1w3hPgDcoWOQdB04t89/1O/w1cDnyilFU='
 line_bot_api = LineBotApi(lineaccesstoken)
 
+text = "This is a link"
+target = "http://example.com"
+link = (f"\u001b]8;;{target}\u001b\\{text}\u001b]8;;\u001b\\")
+
+
 ####################### new ########################
 @app.route('/')
 def index():
@@ -66,12 +71,14 @@ def event_handle(event):
         translation = translator.translate(msg)
         if translation.src == 'en':
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 👇　\n\n"+"　「"+translation.text+"」\n\n")
-            webbrowser.open("http://www.example.com")
+            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 👇　\n\n"+"　「"+translation.text+"」\n\n"+link)
+      
+            #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸 👇 \n\n"+" '"+translation.text+"'\n\n")
-            webbrowser.open("http://www.example.com")
+            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸 👇 \n\n"+" '"+translation.text+"'\n\n"+link)
+          
+            #webbrowser.open("http://www.example.com")
         
         line_bot_api.reply_message(rtoken, replyObj)
 
