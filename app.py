@@ -77,7 +77,7 @@ def event_handle(event):
         }   
         
         response = requests.post('https://api-free.deepl.com/v2/translate', data=data)
-        replyObj = TextSendMessage(text=response)
+        replyObj = TextSendMessage(text=response['text'])
         line_bot_api.reply_message(rtoken, replyObj)
         print(msg)
 
