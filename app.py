@@ -132,6 +132,7 @@ def event_handle(event):
         
         try:
             line_bot_api.reply_message(rtoken, replyObj)
+            print("dasdsadasdk")
         except :
             confused = ['Say that again bitch','I have no idea what you are saying','Check your spelling please']
             rand = np.random.randint(0,2)
