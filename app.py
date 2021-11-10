@@ -46,8 +46,14 @@ def callback():
 
 def event_handle(event):
     
-    print(event)
-    
+    print(event['type'])
+    if event['type'] == "memberJoined":
+        userId = event['joined']['members']['userId']
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Hello '+userId.display_name))
+        print('Someone Joined')
+    if event['type'] == "memberLeft":
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Hello World!'))
+        print('Someone Left')
     
     
     try:
@@ -93,13 +99,7 @@ def event_handle(event):
             group_count_det= group_count'''
 
     
-    if event['type'] == "memberJoined":
-        profile = line_bot_api.get_profile(userId)
-        line_bot_api.push_message(groupId, TextSendMessage(text='Welcome '+profile.display_name+" to the group!\n Please add me as friend so I can translate text for you!"))
-        print('Someone Joined')
-    if event['type'] == "memberLeft":
-        line_bot_api.push_message(groupId, TextSendMessage(text='Hello World!'))
-        print('Someone Left')
+
             
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
