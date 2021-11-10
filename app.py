@@ -49,7 +49,8 @@ def event_handle(event):
     print(event['type'])
     if event['type'] == "memberJoined":
         userId = event['joined']['members']
-        print(userId)
+        userId = userId[0]['userId']
+        print(userId.display_name)
         print(type(userId))
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Hello '))
         print('Someone Joined')
