@@ -62,7 +62,7 @@ def event_handle(event):
         return ''
 
     try:
-        userjoined = event['type']
+        userjoined = str(event['type'])
     except:
         print('error cannot get event type')
         return ''
@@ -93,8 +93,12 @@ def event_handle(event):
             line_bot_api.reply_message(rtoken, replyObj)
             group_count_det= group_count'''
 
-    if userjoined == 'memberJoined':
+    if userjoined == "memberJoined":
         replyObj = TextSendMessage(text='Welcome!')
+        line_bot_api.reply_message(rtoken, replyObj)
+
+    if userjoined == "memberLeft":
+        replyObj = TextSendMessage(text='Bye!')
         line_bot_api.reply_message(rtoken, replyObj)
 
             
