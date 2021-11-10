@@ -55,7 +55,8 @@ def event_handle(event):
         return ''
 
 
-  
+ 
+        return ''
     try:
         groupId = event['source']['groupId']
     except:
@@ -78,7 +79,7 @@ def event_handle(event):
         return ''
 
     
-
+    
     '''group_count = line_bot_api.get_group_members_count(groupId)
     group_count_det = group_count
     group_count = line_bot_api.get_group_members_count(groupId)
@@ -115,8 +116,11 @@ def event_handle(event):
           
             #webbrowser.open("http://www.example.com")
         
-        line_bot_api.reply_message(rtoken, replyObj)
-
+        try:
+            line_bot_api.reply_message(rtoken, replyObj)
+        except :
+            replyObj = TextSendMessage(text="Say that again bitch")
+            line_bot_api.reply_message(rtoken, replyObj)
     else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
