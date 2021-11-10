@@ -77,12 +77,14 @@ def event_handle(event):
         return ''
 
     
-    
     try:
         group_count = line_bot_api.get_group_members_count(groupId)
         group_count_det = group_count
         group_count = line_bot_api.get_group_members_count(groupId)
-        if group_count != group_count_det:
+    except:
+        print('error group count')
+        return ''
+    if group_count != group_count_det:
             replyObj = TextSendMessage(text='Welcome!')
             group_count_ = group_count
             line_bot_api.reply_message(rtoken, replyObj)
