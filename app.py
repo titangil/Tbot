@@ -54,7 +54,7 @@ def event_handle(event):
         print(profile.display_name)
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Welcome'+profile.display_name))
         #print(type(userId))
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\n\n こんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓"))
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\n\nこんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓"))
         print('Someone Joined')
     if event['type'] == "memberLeft":
         profile = line_bot_api.get_profile(event['left']['members'][0]['userId'])
