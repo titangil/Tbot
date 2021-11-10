@@ -77,13 +77,13 @@ def event_handle(event):
 
     
     
-    group_count = line_bot_api.get_group_members_count(groupId)
+    '''group_count = line_bot_api.get_group_members_count(groupId)
     group_count_det = group_count
     group_count = line_bot_api.get_group_members_count(groupId)
     if group_count != group_count_det:
         replyObj = TextSendMessage(text='Welcome!')
         group_count_ = group_count
-        line_bot_api.reply_message(rtoken, replyObj)
+        line_bot_api.reply_message(rtoken, replyObj)'''
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
         group = line_bot_api.get_group_summary(groupId)
