@@ -23,9 +23,7 @@ app = Flask(__name__)
 lineaccesstoken = ' XXXXXX '
 line_bot_api = LineBotApi(lineaccesstoken)
 
-text = "This is a link"
-target = "http://example.com"
-link = (f"\u001b]8;;{target}\u001b\\{text}\u001b]8;;\u001b\\")
+
 
 
 ####################### new ########################
@@ -47,13 +45,40 @@ def callback():
 
 
 def event_handle(event):
-    print(event)
+    
+    print(event['type'])
+    if event['type'] == "memberJoined":
+        #userId = 
+        #userId = 
+        profile = line_bot_api.get_profile(event['joined']['members'][0]['userId'])
+        print(profile.display_name)
+        #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Welcome'+profile.display_name))
+        #print(type(userId))
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\n\nこんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓"))
+        print('Someone Joined')
+    if event['type'] == "memberLeft":
+        profile = line_bot_api.get_profile(event['left']['members'][0]['userId'])
+        #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Bye'+profile.display_name))
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="So long "+profile.display_name+"\nHope we can meet again😢\n\nバイバイ"+profile.display_name+"さん\nまたお会いできることを願っています。😢"))
+        print('Someone Left')
+    
+    
     try:
         userId = event['source']['userId']
     except:
         print('error cannot get userId')
         return ''
 
+
+ 
+        return ''
+    try:
+        groupId = event['source']['groupId']
+    except:
+        print('error cannot get userId')
+        return ''
+
+  
     try:
         rtoken = event['replyToken']
     except:
@@ -69,8 +94,24 @@ def event_handle(event):
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
 
+    
+  
+    '''group_count = str(line_bot_api.get_group_members_count(groupId))
+    group_count_det = group_count
+    group_count = str(line_bot_api.get_group_members_count(groupId))
+
+    if group_count == group_count_det:
+            replyObj = TextSendMessage(text='Welcome!')
+            line_bot_api.reply_message(rtoken, replyObj)
+            group_count_det= group_count'''
+
+    
+
+            
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
+        group = line_bot_api.get_group_summary(groupId)
+        group_count = str(line_bot_api.get_group_members_count(groupId))
         profile.display_name
         msg = str(event["message"]["text"])
         translation = translator.translate(msg)
@@ -87,7 +128,7 @@ def event_handle(event):
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="TEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
+            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
@@ -96,8 +137,15 @@ def event_handle(event):
           
             #webbrowser.open("http://www.example.com")
         
-        line_bot_api.reply_message(rtoken, replyObj)
-
+        try:
+            line_bot_api.reply_message(rtoken, replyObj)
+            print("Translate and Reply Successfuly")
+        except :
+            confused = ['Say that again bitch','I have no idea what you are saying','Check your spelling please']
+            rand = np.random.randint(0,2)
+            replyObj = TextSendMessage(text='<a href="where/you/want/the/link/to/go">text of the link</a>')
+            line_bot_api.reply_message(rtoken, replyObj)
+            print("Translate and Reply Failed")
     else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
