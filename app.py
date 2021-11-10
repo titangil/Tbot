@@ -23,9 +23,7 @@ app = Flask(__name__)
 lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3Ogip6tk8Ye6U7HXK01qCGgYBkzqWAsCzRoGbnSIy7ySiatAQfkrO39tELLdO+ixRiC9cLXMvOTftT1w3hPgDcoWOQdB04t89/1O/w1cDnyilFU='
 line_bot_api = LineBotApi(lineaccesstoken)
 
-text = "This is a link"
-target = "http://example.com"
-link = (f"\u001b]8;;{target}\u001b\\{text}\u001b]8;;\u001b\\")
+
 
 
 ####################### new ########################
@@ -57,11 +55,11 @@ def event_handle(event):
 
  
         return ''
-    try:
+    '''try:
         groupId = event['source']['groupId']
     except:
         print('error cannot get userId')
-        return ''
+        return '''''
 
     try:
         rtoken = event['replyToken']
