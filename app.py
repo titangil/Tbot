@@ -45,7 +45,7 @@ def callback():
 
 
 def event_handle(event):
-    print(event)
+    print(event['type'])
     try:
         userId = event['source']['userId']
     except:
@@ -132,12 +132,13 @@ def event_handle(event):
         
         try:
             line_bot_api.reply_message(rtoken, replyObj)
-            print("dasdsadasdk")
+            print("Translate and Reply Successfuly")
         except :
             confused = ['Say that again bitch','I have no idea what you are saying','Check your spelling please']
             rand = np.random.randint(0,2)
             replyObj = TextSendMessage(text='<a href="where/you/want/the/link/to/go">text of the link</a>')
             line_bot_api.reply_message(rtoken, replyObj)
+            print("Translate and Reply Failed")
     else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
