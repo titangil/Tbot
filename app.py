@@ -119,7 +119,9 @@ def event_handle(event):
         try:
             line_bot_api.reply_message(rtoken, replyObj)
         except :
-            replyObj = TextSendMessage(text="Say that again bitch")
+            confused = ['Say that again bitch','I have no idea what you are saying','Check your spelling please']
+            rand = np.random.randint(0,2)
+            replyObj = TextSendMessage(text=confused[rand])
             line_bot_api.reply_message(rtoken, replyObj)
     else:
         sk_id = np.random.randint(1,17)
