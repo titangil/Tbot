@@ -62,6 +62,12 @@ def event_handle(event):
         return ''
 
     try:
+        userjoined = event['type']
+    except:
+        print('error cannot get event type')
+        return ''
+
+    try:
         rtoken = event['replyToken']
     except:
         print('error cannot get rtoken')
@@ -78,14 +84,19 @@ def event_handle(event):
 
     
   
-    group_count = str(line_bot_api.get_group_members_count(groupId))
+    '''group_count = str(line_bot_api.get_group_members_count(groupId))
     group_count_det = group_count
     group_count = str(line_bot_api.get_group_members_count(groupId))
 
     if group_count == group_count_det:
             replyObj = TextSendMessage(text='Welcome!')
             line_bot_api.reply_message(rtoken, replyObj)
-            group_count_det= group_count
+            group_count_det= group_count'''
+
+    if userjoined == 'memberJoined':
+        replyObj = TextSendMessage(text='Welcome!')
+        line_bot_api.reply_message(rtoken, replyObj)
+
             
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
