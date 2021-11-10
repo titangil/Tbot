@@ -78,13 +78,14 @@ def event_handle(event):
 
     
     
-    '''group_count = line_bot_api.get_group_members_count(groupId)
-    group_count_det = group_count
-    group_count = line_bot_api.get_group_members_count(groupId)
-    if group_count != group_count_det:
-        replyObj = TextSendMessage(text='Welcome!')
-        group_count_ = group_count
-        line_bot_api.reply_message(rtoken, replyObj)'''
+    try:
+        group_count = line_bot_api.get_group_members_count(groupId)
+        group_count_det = group_count
+        group_count = line_bot_api.get_group_members_count(groupId)
+        if group_count != group_count_det:
+            replyObj = TextSendMessage(text='Welcome!')
+            group_count_ = group_count
+            line_bot_api.reply_message(rtoken, replyObj)
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
         group = line_bot_api.get_group_summary(groupId)
@@ -105,7 +106,7 @@ def event_handle(event):
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx+ group.group_name)
+            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
