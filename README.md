@@ -4,9 +4,18 @@ Line bot. Webhook hosting on Heroku => https://www.heroku.com
 
 Functions:
 
-  -Read & reply text : LINE Messaging API SDK for Python => https://github.com/line/line-bot-sdk-python
+  - LINE Messaging API SDK for Python => https://github.com/line/line-bot-sdk-python
   
-  -Translate text : Googletrans => https://github.com/ssut/py-googletrans
+    - Read text
+
+    - Reply text
+    
+    - Greet new member when joining the group
+    
+    - Farewell member when leaveing the group
+ 
+  
+  - Translate text : Googletrans => https://github.com/ssut/py-googletrans
   
     - EN to JA
     
@@ -14,7 +23,7 @@ Functions:
     
   
   
-  -Japanese sentence processing: nagisa =>https://github.com/taishi-i/nagisa
+  - Japanese sentence processing: nagisa =>https://github.com/taishi-i/nagisa
   
     - Words segmentation
     - Part of speech
