@@ -61,12 +61,7 @@ def event_handle(event):
         print('error cannot get userId')
         return ''
 
-    try:
-        userjoined = str(event['type'])
-    except:
-        print('error cannot get event type')
-        return ''
-
+  
     try:
         rtoken = event['replyToken']
     except:
@@ -93,12 +88,12 @@ def event_handle(event):
             line_bot_api.reply_message(rtoken, replyObj)
             group_count_det= group_count'''
 
-    if userjoined == "memberJoined":
+    if event['type'] == "memberJoined":
         line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
-        print('aaaa')
-    if userjoined == "memberLeft":
+        print('Someone Joined')
+    if event['type'] == "memberLeft":
         line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
-        print('aaa')
+        print('Someone Left')
 
             
     if msgType == "text":
@@ -121,7 +116,7 @@ def event_handle(event):
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx+group_count)
+            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
