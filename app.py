@@ -55,6 +55,12 @@ def event_handle(event):
         return ''
 
     try:
+        groupId = event['source']['groupId']
+    except:
+        print('error cannot get userId')
+        return ''
+
+    try:
         rtoken = event['replyToken']
     except:
         print('error cannot get rtoken')
@@ -71,6 +77,7 @@ def event_handle(event):
 
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
+        group = line_bot_api.get_group_summary(groupId)
         profile.display_name
         msg = str(event["message"]["text"])
         translation = translator.translate(msg)
@@ -87,7 +94,7 @@ def event_handle(event):
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
+            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx+ group.group_name)
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
