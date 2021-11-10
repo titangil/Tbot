@@ -55,11 +55,11 @@ def event_handle(event):
 
  
         return ''
-    '''try:
+    try:
         groupId = event['source']['groupId']
     except:
         print('error cannot get userId')
-        return '''''
+        return ''
 
     try:
         rtoken = event['replyToken']
