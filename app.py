@@ -92,7 +92,7 @@ def event_handle(event):
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
         group = line_bot_api.get_group_summary(groupId)
-        
+        group_count = str(line_bot_api.get_group_members_count(groupId))
         profile.display_name
         msg = str(event["message"]["text"])
         translation = translator.translate(msg)
