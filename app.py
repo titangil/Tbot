@@ -46,6 +46,12 @@ def callback():
 
 def event_handle(event):
     print(event['type'])
+    if event['type'] == "memberJoined":
+        #line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
+        print('Someone Joined')
+    if event['type'] == "memberLeft":
+        #line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
+        print('Someone Left')
     try:
         userId = event['source']['userId']
     except:
@@ -88,12 +94,7 @@ def event_handle(event):
             line_bot_api.reply_message(rtoken, replyObj)
             group_count_det= group_count'''
 
-    if event['type'] == "memberJoined":
-        line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
-        print('Someone Joined')
-    if event['type'] == "memberLeft":
-        line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
-        print('Someone Left')
+    
 
             
     if msgType == "text":
