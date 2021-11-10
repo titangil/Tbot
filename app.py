@@ -87,7 +87,7 @@ def event_handle(event):
         if translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
-            replyObj = TextSendMessage(text="TEST翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
+            replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
       
             #webbrowser.open("http://www.example.com")
         elif translation.src == 'ja':
