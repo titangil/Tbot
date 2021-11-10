@@ -55,11 +55,7 @@ def event_handle(event):
         return ''
 
 
-    try:
-        join = event['event']['joined']
-    except:
-        print('cant detect join')
-        return ''
+  
     try:
         groupId = event['source']['groupId']
     except:
