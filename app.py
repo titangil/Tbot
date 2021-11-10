@@ -54,12 +54,12 @@ def event_handle(event):
         print(profile.display_name)
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Welcome'+profile.display_name))
         #print(type(userId))
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="Welcome "+profile.display_name+" to our group!😆🥳\n Please add me as friend so I can start translate text for you!🤓\n\n こんにちは "+profile.display_name)+"さん!😆🥳\n 友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓")
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\n\n こんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓"))
         print('Someone Joined')
     if event['type'] == "memberLeft":
         profile = line_bot_api.get_profile(event['left']['members'][0]['userId'])
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Bye'+profile.display_name))
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="So long "+profile.display_name+"\n Hope we can meet again😢\n\n バイバイ"+profile.display_name+"さん\nまたお会いできることを願っています。😢"))
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="So long "+profile.display_name+"\nHope we can meet again😢\n\nバイバイ"+profile.display_name+"さん\nまたお会いできることを願っています。😢"))
         print('Someone Left')
     
     
