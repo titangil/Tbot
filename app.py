@@ -45,15 +45,11 @@ def callback():
 
 
 def event_handle(event):
-    print(event['type'])
-    if event['type'] == "memberJoined":
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Hello World!'))
-        #line_bot_api.reply_message(event['replyToken'], TextSendMessage(text='Hello!'))
-        print('Someone Joined')
-    if event['type'] == "memberLeft":
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Hello World!'))
-        #line_bot_api.reply_message(event['replyToken'], TextSendMessage(text='Bye!'))
-        print('Someone Left')
+    
+    print(event)
+    
+    
+    
     try:
         userId = event['source']['userId']
     except:
@@ -97,7 +93,13 @@ def event_handle(event):
             group_count_det= group_count'''
 
     
-
+    if event['type'] == "memberJoined":
+        profile = line_bot_api.get_profile(userId)
+        line_bot_api.push_message(groupId, TextSendMessage(text='Welcome '+profile.display_name+" to the group!\n Please add me as friend so I can translate text for you!"))
+        print('Someone Joined')
+    if event['type'] == "memberLeft":
+        line_bot_api.push_message(groupId, TextSendMessage(text='Hello World!'))
+        print('Someone Left')
             
     if msgType == "text":
         profile = line_bot_api.get_profile(userId)
