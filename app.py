@@ -47,10 +47,12 @@ def callback():
 def event_handle(event):
     print(event['type'])
     if event['type'] == "memberJoined":
-        line_bot_api.reply_message(event['replyToken'], TextSendMessage(text='Hello!'))
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Hello World!'))
+        #line_bot_api.reply_message(event['replyToken'], TextSendMessage(text='Hello!'))
         print('Someone Joined')
     if event['type'] == "memberLeft":
-        line_bot_api.reply_message(event['replyToken'], TextSendMessage(text='Bye!'))
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Hello World!'))
+        #line_bot_api.reply_message(event['replyToken'], TextSendMessage(text='Bye!'))
         print('Someone Left')
     try:
         userId = event['source']['userId']
