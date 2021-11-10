@@ -94,12 +94,11 @@ def event_handle(event):
             group_count_det= group_count'''
 
     if userjoined == "memberJoined":
-        replyObj = TextSendMessage(text='Welcome!')
-        line_bot_api.reply_message(rtoken, replyObj)
-
+        line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
+        print('aaaa')
     if userjoined == "memberLeft":
-        replyObj = TextSendMessage(text='Bye!')
-        line_bot_api.reply_message(rtoken, replyObj)
+        line_bot_api.reply_message(rtoken, TextSendMessage(text='Hello World!'))
+        print('aaa')
 
             
     if msgType == "text":
