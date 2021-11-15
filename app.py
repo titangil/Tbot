@@ -6,6 +6,7 @@ from csv import DictWriter
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
+import pandas as pd
 from googletrans import Translator
 import webbrowser
 
