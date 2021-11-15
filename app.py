@@ -27,7 +27,8 @@ line_bot_api = LineBotApi(lineaccesstoken)
 
 
 ################### CSV ######################
-f = open("talk.csv", "x")
+f = open("talk.csv", "w")
+print('file updated')
 headersCSV = ['Japanese','English translated']      
 #dict={'Japanese':'こんにちは','English translated':'Hello.'}
 
