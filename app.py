@@ -142,6 +142,7 @@ def event_handle(event):
                 dictwriter_object = DictWriter(talk, fieldnames=headersCSV)
                 dictwriter_object.writerow(dict)
                 talk.close()
+                f.write(dict)
          
 
         try:
