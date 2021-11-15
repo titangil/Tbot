@@ -2,6 +2,7 @@
 #-*-coding: utf-8 -*-
 ##from __future__ import absolute_import
 ###
+from csv import DictWriter
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
@@ -24,6 +25,10 @@ lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3
 line_bot_api = LineBotApi(lineaccesstoken)
 
 
+
+################### CSV ######################
+headersCSV = ['Japanese','English translated']      
+#dict={'Japanese':'こんにちは','English translated':'Hello.'}
 
 
 ####################### new ########################
@@ -96,14 +101,6 @@ def event_handle(event):
 
     
   
-    '''group_count = str(line_bot_api.get_group_members_count(groupId))
-    group_count_det = group_count
-    group_count = str(line_bot_api.get_group_members_count(groupId))
-
-    if group_count == group_count_det:
-            replyObj = TextSendMessage(text='Welcome!')
-            line_bot_api.reply_message(rtoken, replyObj)
-            group_count_det= group_count'''
 
     
 
@@ -129,20 +126,28 @@ def event_handle(event):
             
             translation = translator.translate(msg, dest='ja')
             replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
-      
-            #webbrowser.open("http://www.example.com")
+
+
+           
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
             replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+wordx)
           
-            #webbrowser.open("http://www.example.com")
-        
+         
+            dict={'Japanese':msg,'English translated':translation}
+            with open('talk.csv', 'a', newline='') as talk:
+
+                dictwriter_object = DictWriter(talk, fieldnames=headersCSV)
+                dictwriter_object.writerow(dict)
+                talk.close()
+         
+
         try:
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Successfuly")
         except :
-            confused = ['Say that again bitch','I have no idea what you are saying','Check your spelling please']
-            rand = np.random.randint(0,2)
+            confused = ['I have no idea what you are saying','Check your spelling please']
+            rand = np.random.randint(0,1)
             replyObj = TextSendMessage(text='<a href="where/you/want/the/link/to/go">text of the link</a>')
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Failed")
