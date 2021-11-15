@@ -136,7 +136,7 @@ def event_handle(event):
             replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+wordx)
           
          
-            dict={'Japanese':msg,'English translated':translation}
+            dict={'Japanese':msg,'English translated':translation.text}
             with open('talk.csv', 'a', newline='') as talk:
 
                 dictwriter_object = DictWriter(talk, fieldnames=headersCSV)
