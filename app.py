@@ -28,8 +28,7 @@ line_bot_api = LineBotApi(lineaccesstoken)
 
 
 ################### CSV ######################
-f = open("talk.csv", "w")
-print('file updated')
+
 headersCSV = ['Japanese','English translated']      
 #dict={'Japanese':'こんにちは','English translated':'Hello.'}
 
@@ -143,7 +142,11 @@ def event_handle(event):
                 dictwriter_object = DictWriter(talk, fieldnames=headersCSV)
                 dictwriter_object.writerow(dict)
                 talk.close()
+
                 #f.write(dict)
+
+            df = pd.read_csv('talk.csv')
+            print(df.to_string()) 
          
 
         try:
