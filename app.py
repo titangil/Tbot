@@ -145,8 +145,8 @@ def event_handle(event):
 
                 #f.write(dict)
 
-            df = pd.read_csv('talk.csv')
-            print(df.to_string()) 
+            #df = pd.read_csv('talk.csv')
+            #print(df.to_string()) 
          
 
         try:
