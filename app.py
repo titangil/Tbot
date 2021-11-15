@@ -29,7 +29,7 @@ line_bot_api = LineBotApi(lineaccesstoken)
 
 ################### CSV ######################
 
-headersCSV = ['Japanese','English translated']      
+#headersCSV = ['Japanese','English translated']      
 #dict={'Japanese':'こんにちは','English translated':'Hello.'}
 
 
