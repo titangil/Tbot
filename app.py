@@ -124,7 +124,11 @@ def event_handle(event):
                 wordx = wordx + words.words[x] + "\t  "+ words.postags[x]+"\n"
             elif len(words.words[x]) == 3:
                 wordx = wordx + words.words[x] + "\t"+ words.postags[x]+"\n"
-        if translation.src == 'en':
+        
+        if msg == 'Download csv':
+            replyObj = TextSendMessage(text="Google drive link...")
+        
+        elif translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
             replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
@@ -159,6 +163,10 @@ def event_handle(event):
             replyObj = TextSendMessage(text='<a href="where/you/want/the/link/to/go">text of the link</a>')
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Failed")
+
+        
+
+
     else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
