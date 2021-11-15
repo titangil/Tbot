@@ -129,7 +129,8 @@ def event_handle(event):
             translation = translator.translate(msg, dest='ja')
             replyObj = TextSendMessage(text="翻訳  🇺🇸 => 🇯🇵 　\n\n"+profile.display_name+"さんは\n　　「"+translation.text+"」   \nと言った\n\n"+ wordx)
 
-
+            df = pd.read_csv('talk.csv')
+            print(df.to_string()) 
            
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
