@@ -9,3 +9,5 @@ google-cloud-storage
 nagisa
 python-csv
 dropbox
+cutlet
+unidic-lite

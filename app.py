@@ -11,6 +11,7 @@ from googletrans import Translator
 import webbrowser
 import dropbox
 import nagisa
+import cutlet
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
@@ -26,7 +27,7 @@ lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3
 line_bot_api = LineBotApi(lineaccesstoken)
 
 
-
+katsu = cutlet.Cutlet()
 ################### Dropbox ##################
 dropbox_access_token = "acFejDGvB7oAAAAAAAAAAeU29LoxJ8MEQg6bGRWWBR3cHo7vMBazvFdUVgK4f-XV"
 dropbox_path = "/Tbot/talk.csv"
@@ -164,8 +165,8 @@ def event_handle(event):
            
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+wordx)
-          
+            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"\nRomanji\n        "+katsu.romaji(msg)+"'\n\n"+wordx)
+            #print(katsu.romaji(msg))
          
             dict={'Japanese':msg,'English translated':translation.text}
             with open('talk.csv', 'a', newline='') as talk:
