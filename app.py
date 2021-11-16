@@ -67,12 +67,14 @@ def event_handle(event):
         print(profile.display_name)
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Welcome'+profile.display_name))
         #print(type(userId))
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\n\nこんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓"))
+        Welcomemsg = "Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\nType '/Help' for more information\n\nこんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓\n詳細は「/Help」と入力してください。"
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text= Welcomemsg))
         print('Someone Joined')
     if event['type'] == "memberLeft":
         profile = line_bot_api.get_profile(event['left']['members'][0]['userId'])
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Bye'+profile.display_name))
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="So long "+profile.display_name+"\nHope we can meet again😢\n\nバイバイ"+profile.display_name+"さん\nまたお会いできることを願っています。😢"))
+        byemsg = "So long "+profile.display_name+"\nHope we can meet again😢\n\nバイバイ"+profile.display_name+"さん\nまたお会いできることを願っています。😢"
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text=byemsg))
         print('Someone Left')
     
     
@@ -131,13 +133,23 @@ def event_handle(event):
             elif len(words.words[x]) == 3:
                 wordx = wordx + words.words[x] + "\t"+ words.postags[x]+"\n"
         
-        if msg == 'Download csv':
+        if msg == '/Download':
             client.files_delete(dropbox_path)
             client.files_upload (open (computer_path, "rb"). read (), dropbox_path)
             print ("upload: {}" .format (computer_path))
             link_to_download= client.sharing_create_shared_link(dropbox_path)
             replyObj = TextSendMessage(text="Dropbox Link:  "+ link_to_download.url)
-        
+
+        elif msg == '/Help':
+            helpmsg = "- Text in Japanese will be translated to English\n- Text in English will be translated to Japanese\n- Type '/Download' to download the conversation\n- Type '/Clear' to delete all conversation"
+            replyObj = TextSendMessage(text=helpmsg)
+            
+        elif msg == '/Clear':
+            talk = open("talk.csv", "w")
+            talk.truncate()
+            talk.close()
+
+
         elif translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
