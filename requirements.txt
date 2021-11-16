@@ -8,3 +8,4 @@ googletrans==3.1.0a0
 google-cloud-storage
 nagisa
 python-csv
+dropbox
