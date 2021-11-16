@@ -9,8 +9,11 @@ import numpy as np
 import pandas as pd
 from googletrans import Translator
 import webbrowser
-
+import dropbox
 import nagisa
+import cutlet
+from janome.tokenizer import Tokenizer
+t = Tokenizer()
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
@@ -26,6 +29,12 @@ lineaccesstoken = ' XXXXXX '
 line_bot_api = LineBotApi(lineaccesstoken)
 
 
+katsu = cutlet.Cutlet()
+################### Dropbox ##################
+dropbox_access_token = "acFejDGvB7oAAAAAAAAAAeU29LoxJ8MEQg6bGRWWBR3cHo7vMBazvFdUVgK4f-XV"
+dropbox_path = "/Tbot/talk.csv"
+computer_path = r"talk.csv"
+client = dropbox.Dropbox (dropbox_access_token)
 
 ################### CSV ######################
 
@@ -61,12 +70,14 @@ def event_handle(event):
         print(profile.display_name)
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Welcome'+profile.display_name))
         #print(type(userId))
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\n\nこんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓"))
+        Welcomemsg = "Welcome "+profile.display_name+" to our group!😆🥳\nPlease add me as friend so I can start translate text for you!🤓\nType '/Help' for more information\n\nこんにちは "+profile.display_name+"さん!😆🥳\n友達になってください、そうすれば私はあなたのためにテキストを翻訳することができます。🤓\n詳細は「/Help」と入力してください。"
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text= Welcomemsg))
         print('Someone Joined')
     if event['type'] == "memberLeft":
         profile = line_bot_api.get_profile(event['left']['members'][0]['userId'])
         #line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text='Bye'+profile.display_name))
-        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text="So long "+profile.display_name+"\nHope we can meet again😢\n\nバイバイ"+profile.display_name+"さん\nまたお会いできることを願っています。😢"))
+        byemsg = "So long "+profile.display_name+"\nHope we can meet again😢\n\nバイバイ"+profile.display_name+"さん\nまたお会いできることを願っています。😢"
+        line_bot_api.push_message(event['source']['groupId'], TextSendMessage(text=byemsg))
         print('Someone Left')
     
     
@@ -125,9 +136,27 @@ def event_handle(event):
             elif len(words.words[x]) == 3:
                 wordx = wordx + words.words[x] + "\t"+ words.postags[x]+"\n"
         
-        if msg == 'Download csv':
-            replyObj = TextSendMessage(text="Google drive link...")
-        
+        if msg == '/Download':
+            client.files_delete(dropbox_path)
+            client.files_upload (open (computer_path, "rb"). read (), dropbox_path)
+            print ("upload: {}" .format (computer_path))
+            link_to_download= client.sharing_create_shared_link(dropbox_path)
+            replyObj = TextSendMessage(text="Dropbox Link:  "+ link_to_download.url)
+
+        elif msg == '/Help':
+            helpmsg = "- Text in Japanese will be translated to English\n- Text in English will be translated to Japanese\n- Type '/Download' to download the conversation\n- Type '/Clear' to delete all conversation"
+            replyObj = TextSendMessage(text=helpmsg)
+            
+        elif msg == '/Clear':
+            talk = open("talk.csv", "w")
+            talk.truncate()
+            talk.close()
+            with open('talk.csv', 'w') as open_file:
+                dw = DictWriter(open_file, delimiter=',', fieldnames=headersCSV)
+                dw.writeheader()
+           
+            replyObj = TextSendMessage(text='Cleared all conversation successfully!')
+
         elif translation.src == 'en':
             
             translation = translator.translate(msg, dest='ja')
@@ -138,8 +167,8 @@ def event_handle(event):
            
         elif translation.src == 'ja':
             translation = translator.translate(msg, dest='en')
-            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"'\n\n"+wordx)
-          
+            replyObj = TextSendMessage(text="Translation  🇯🇵 => 🇺🇸  \n\n"+profile.display_name+" said\n        '"+translation.text+"\nRomanji\n        "+katsu.romaji(msg)+"'\n\n"+wordx)
+            #print(katsu.romaji(msg))
          
             dict={'Japanese':msg,'English translated':translation.text}
             with open('talk.csv', 'a', newline='') as talk:
@@ -152,15 +181,17 @@ def event_handle(event):
 
             df = pd.read_csv('talk.csv')
             print(df.to_string()) 
+            
+            
          
 
         try:
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Successfuly")
         except :
-            confused = ['I have no idea what you are saying','Check your spelling please']
-            rand = np.random.randint(0,1)
-            replyObj = TextSendMessage(text='<a href="where/you/want/the/link/to/go">text of the link</a>')
+            confused = ['I have no idea what you are saying','Please Check your spelling','😵😵😵']
+            rand = np.random.randint(0,2)
+            replyObj = TextSendMessage(text=confused[rand])
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Failed")
 
