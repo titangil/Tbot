@@ -147,9 +147,9 @@ def event_handle(event):
         elif msg == '/Clear':
             talk = open("talk.csv", "w")
             talk.truncate()
+            dictwriter_object = DictWriter(talk, fieldnames=headersCSV)
             talk.close()
-            replyObj = TextSendMessage(text="Cleared all conversation history")
-
+            replyObj = TextSendMessage(text='Cleared all conversation successfully!')
 
         elif translation.src == 'en':
             
@@ -167,7 +167,7 @@ def event_handle(event):
             dict={'Japanese':msg,'English translated':translation.text}
             with open('talk.csv', 'a', newline='') as talk:
 
-                dictwriter_object = DictWriter(talk)
+                dictwriter_object = DictWriter(talk, fieldnames=headersCSV)
                 dictwriter_object.writerow(dict)
                 talk.close()
 
