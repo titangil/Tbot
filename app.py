@@ -148,6 +148,9 @@ def event_handle(event):
             talk = open("talk.csv", "w")
             talk.truncate()
             talk.close()
+            with open('talk.csv', 'w') as open_file:
+                dw = DictWriter(open_file, delimiter=',', fieldnames=headersCSV)
+                dw.writeheader()
            
             replyObj = TextSendMessage(text='Cleared all conversation successfully!')
 
