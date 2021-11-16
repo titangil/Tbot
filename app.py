@@ -135,7 +135,7 @@ def event_handle(event):
             client.files_upload (open (computer_path, "rb"). read (), dropbox_path)
             print ("upload: {}" .format (computer_path))
             link_to_download= client.sharing_create_shared_link(dropbox_path)
-            replyObj = TextSendMessage(text="Dropbox Link: "+ link_to_download.url)
+            replyObj = TextSendMessage(text="Dropbox Link:  "+ link_to_download.url)
         
         elif translation.src == 'en':
             
