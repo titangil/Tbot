@@ -132,6 +132,8 @@ def event_handle(event):
                 wordx = wordx + words.words[x] + "\t"+ words.postags[x]+"\n"
         
         if msg == 'Download csv':
+            client.files_upload (open (computer_path, "rb"). read (), dropbox_path)
+            print ("upload: {}" .format (computer_path))
             link_to_download= client.sharing_create_shared_link(dropbox_path)
             replyObj = TextSendMessage(text="Dropbox Link: "+ link_to_download.url)
         
@@ -158,9 +160,8 @@ def event_handle(event):
                 #f.write(dict)
 
             df = pd.read_csv('talk.csv')
-            print(df.to_string()+"\n~~~~~~~~~~~~~~~~~") 
-            client.files_upload (open (computer_path, "rb"). read (), dropbox_path)
-            print ("upload: {} \n~~~~~~~~~~~~~~~" .format (computer_path))
+            print(df.to_string()) 
+            
             
          
 
