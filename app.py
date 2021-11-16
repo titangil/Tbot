@@ -183,7 +183,7 @@ def event_handle(event):
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Successfuly")
         except :
-            confused = ['I have no idea what you are saying','Please Check your spelling',😵]
+            confused = ['I have no idea what you are saying','Please Check your spelling','😵😵😵']
             rand = np.random.randint(0,2)
             replyObj = TextSendMessage(text=confused[rand])
             line_bot_api.reply_message(rtoken, replyObj)
