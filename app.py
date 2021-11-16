@@ -148,6 +148,7 @@ def event_handle(event):
             talk = open("talk.csv", "w")
             talk.truncate()
             talk.close()
+            replyObj = TextSendMessage(text="Cleared all conversation history")
 
 
         elif translation.src == 'en':
@@ -166,7 +167,7 @@ def event_handle(event):
             dict={'Japanese':msg,'English translated':translation.text}
             with open('talk.csv', 'a', newline='') as talk:
 
-                dictwriter_object = DictWriter(talk, fieldnames=headersCSV)
+                dictwriter_object = DictWriter(talk)
                 dictwriter_object.writerow(dict)
                 talk.close()
 
@@ -182,9 +183,9 @@ def event_handle(event):
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Successfuly")
         except :
-            confused = ['I have no idea what you are saying','Check your spelling please']
-            rand = np.random.randint(0,1)
-            replyObj = TextSendMessage(text='<a href="where/you/want/the/link/to/go">text of the link</a>')
+            confused = ['I have no idea what you are saying','Please Check your spelling',😵]
+            rand = np.random.randint(0,2)
+            replyObj = TextSendMessage(text=confused[rand])
             line_bot_api.reply_message(rtoken, replyObj)
             print("Translate and Reply Failed")
 
