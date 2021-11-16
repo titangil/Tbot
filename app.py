@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from googletrans import Translator
 import webbrowser
-
+import dropbox
 import nagisa
 
 from linebot.models import (
@@ -26,6 +26,12 @@ lineaccesstoken = '/+mz28LZ+4TcWao8D1SiEkEJfSatxM8rLwa7MqMl6yMyffOdaJtnqHqzemci3
 line_bot_api = LineBotApi(lineaccesstoken)
 
 
+
+################### Dropbox ##################
+dropbox_access_token = "acFejDGvB7oAAAAAAAAAAeU29LoxJ8MEQg6bGRWWBR3cHo7vMBazvFdUVgK4f-XV"
+dropbox_path = "/Tbot/talk.csv"
+computer_path = r"talk.csv"
+client = dropbox.Dropbox (dropbox_access_token)
 
 ################### CSV ######################
 
@@ -126,7 +132,8 @@ def event_handle(event):
                 wordx = wordx + words.words[x] + "\t"+ words.postags[x]+"\n"
         
         if msg == 'Download csv':
-            replyObj = TextSendMessage(text="Google drive link...")
+            link_to_download= client.sharing_create_shared_link(dropbox_path)
+            replyObj = TextSendMessage(text="Dropbox Link: "+ link_to_download)
         
         elif translation.src == 'en':
             
@@ -151,7 +158,10 @@ def event_handle(event):
                 #f.write(dict)
 
             df = pd.read_csv('talk.csv')
-            print(df.to_string()) 
+            print(df.to_string()+"\n~~~~~~~~~~~~~~~~~") 
+            client.files_upload (open (computer_path, "rb"). read (), dropbox_path)
+            print ("upload: {} \n~~~~~~~~~~~~~~~" .format (computer_path))
+            
          
 
         try:
