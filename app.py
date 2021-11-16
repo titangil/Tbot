@@ -132,6 +132,7 @@ def event_handle(event):
                 wordx = wordx + words.words[x] + "\t"+ words.postags[x]+"\n"
         
         if msg == 'Download csv':
+            client.files_delete(dropbox_path)
             client.files_upload (open (computer_path, "rb"). read (), dropbox_path)
             print ("upload: {}" .format (computer_path))
             link_to_download= client.sharing_create_shared_link(dropbox_path)
