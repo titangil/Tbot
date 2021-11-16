@@ -12,6 +12,8 @@ import webbrowser
 import dropbox
 import nagisa
 import cutlet
+from janome.tokenizer import Tokenizer
+t = Tokenizer()
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
