@@ -133,7 +133,7 @@ def event_handle(event):
         
         if msg == 'Download csv':
             link_to_download= client.sharing_create_shared_link(dropbox_path)
-            replyObj = TextSendMessage(text="Dropbox Link: "+ link_to_download)
+            replyObj = TextSendMessage(text="Dropbox Link: "+ link_to_download.url)
         
         elif translation.src == 'en':
             
